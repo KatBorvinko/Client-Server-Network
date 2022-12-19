@@ -24,6 +24,10 @@ serialization_option = "XML"
 
 deserialization_option = "XML"
 
+number_of_connection = 3
+
+size = 1024
+
 server_address = 'localhost'
 port_number = 9998
 
