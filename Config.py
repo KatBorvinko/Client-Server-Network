@@ -24,7 +24,7 @@ serialization_option = "XML"
 
 deserialization_option = "XML"
 
-number_of_connection = 3
+timeout = 3
 
 size = 1024
 
