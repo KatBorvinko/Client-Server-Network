@@ -8,55 +8,36 @@ from cryptography.fernet import Fernet
 
 COUNTRIES = Config.countries
 
-
-# Server connection
-def connect_to_server():
-    client = socket.socket()
-    client.connect((Config.server_address, Config.port_number))
-    name = input("Enter your name, please: ")
-    client.send(bytes(name, 'utf-8'))
-    data = input("Please type dictionary: ")
-    client.send(bytes(data, 'utf-8'))
-    print("Welcome to the dictionary:")
-
-    if __name__ == '__main__':
-        connect_to_server()
-
-    for key, value in COUNTRIES.items():
-        print(key, value)
-
-
-# Edit dictionary
-def edit(self, key, value):
-    self.dictionary[key] = value
+s = socket.socket()
+client = socket.socket()
+client.connect((Config.server_address, Config.port_number))
 
 
 # Serialization/ pickle file
-def serialise_dictionary(self):
+def serialise_dictionary(serialization):
     if Config.serialization_option == "JSON":
-        with open('dico.json', 'w') as f:
-            json.dump(self.dictionary, f)
-            print('Dictionary serialised. Filename: JSON')
+        return json.dumps(serialization)
+
     elif Config.serialization_option == "BINARY":
-        with open('dico.bin', 'wb') as f:
-            pickle.dump(self.dictionary, f)
-            print('Dictionary serialised. Filename: Binary')
+        return pickle.dumps(serialization)
+
     elif Config.serialization_option == "XML":
-        xml_content = dict2xml(self.dictionary, wrap="dictionary", indent="  ")
-        with open('dico.xml', 'w') as f:
-            f.write(xml_content)
-            f.close()
-            print('Dictionary serialised as XML. Filename: xml')
+        return dict2xml(serialization, wrap="dictionary", indent="  ")
+
+    else:
+        print("format not recognised")
+
+
+payload = serialise_dictionary(COUNTRIES)
+client.send(payload.encode('utf8'))
+
+with open('GrpC.txt', 'w') as data:
+    data.write(str(COUNTRIES))
 
 
 # File encryption
-def encrypt(filename, key):
-    f = Fernet(key)
-    with open(filename, "rb") as file:
-        # read all file data
-        file_data = file.read()
-    # encrypt data
-    encrypted_data = f.encrypt(file_data)
-    # write the encrypted file
-    with open(filename, "wb") as file:
-        file.write(encrypted_data)
+def encrypt():
+    f = Fernet(Config.key)
+    text = input("GrpC.txt").encode()
+    encrypted = f.encrypt(text)
+    print("Encrypted dictionary")

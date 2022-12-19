@@ -1,0 +1,2 @@
+dict2xml~=1.7.2
+cryptography~=38.0.4

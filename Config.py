@@ -20,11 +20,17 @@ countries = dict({'1': 'Argentina',
                   '19': 'United Arab Emirates',
                   '20': 'United Kingdom'})
 
-serialization_option = "binary"\
-                       "JASOn"\
-                       "XML"
+serialization_option = "XML"
+
+deserialization_option = "XML"
 
 server_address = 'localhost'
-port_number = 9997
+port_number = 9998
 
-Buffer_size = 4096
+opt = 1
+
+file_name = "GrpC.txt"
+
+from cryptography.fernet import Fernet
+
+key = Fernet.generate_key()
