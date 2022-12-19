@@ -17,13 +17,10 @@ client.connect((Config.server_address, Config.port_number))
 def serialise_dictionary(serialization):
     if Config.serialization_option == "JSON":
         return json.dumps(serialization)
-
     elif Config.serialization_option == "BINARY":
         return pickle.dumps(serialization)
-
     elif Config.serialization_option == "XML":
         return dict2xml(serialization, wrap="dictionary", indent="  ")
-
     else:
         print("format not recognised")
 
