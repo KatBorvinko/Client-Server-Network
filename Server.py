@@ -12,7 +12,7 @@ COUNTRIES = Config.countries
 s = socket.socket()
 print('Socket created')
 s.bind((Config.server_address, Config.port_number))
-s.listen(3)  # take it out or put it into the config file (config.timeout(3))
+s.listen(Config.number_of_connection)  # take it out or put it into the config file (config.timeout(3))
 print('Waiting for connections')
 
 
@@ -40,7 +40,7 @@ def decrypt():
 
 while True:
     c, addr = s.accept()
-    name = c.recv(1024).decode()  # put the number into the config file # print("connected with ", addr, name)
+    name = c.recv(Config.size).decode()  # put the number into the config file # print("connected with ", addr, name)
     if Config.opt == 1:
         print(name)
     else:
