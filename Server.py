@@ -12,7 +12,7 @@ COUNTRIES = Config.countries
 s = socket.socket()
 print('Socket created')
 s.bind((Config.server_address, Config.port_number))
-s.listen(Config.number_of_connection)  # take it out or put it into the config file (config.timeout(3))
+s.listen(Config.timeout)  # take it out or put it into the config file (config.timeout(3))
 print('Waiting for connections')
 
 
